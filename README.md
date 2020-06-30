@@ -161,7 +161,7 @@ Nothing
 */
 ```
 
-La fonction ```CBA_fnc_taskDefend``` donne la plupart du temps un résultat tout-à-fait satisfaisant sans avoir à placer d'unité à la main : elle va envoyer automatiquement les IA se fortifeir dans les batiments ou fortifications dans un rayon donné (paramètre 3), pour autant que ces assets soient correctement configurés. De plus, elle évite que toutes les unités en garnison restent bêtement à attendre qu'on vienne les cueillir une à une dans les bâtiments : une fois attaquées, certaines d'entre elles vont se porter au combat, d'autre rester à couvert (paramètre 6). Ceci rend les combats en CQB très dynamiques. La fonction a deux défauts :
+La fonction ```CBA_fnc_taskDefend``` donne la plupart du temps un résultat tout-à-fait satisfaisant sans avoir à placer d'unité à la main : elle va envoyer automatiquement les IA se fortifier dans les batiments ou fortifications dans un rayon donné (paramètre 3), pour autant que ces assets soient correctement configurés. De plus, elle évite que toutes les unités en garnison restent bêtement à attendre qu'on vienne les cueillir une à une dans les bâtiments : une fois attaquées, certaines d'entre elles vont se porter au combat, d'autre rester à couvert (paramètre 6). Ceci rend les combats en CQB très dynamiques. La fonction a deux défauts :
 
 * Si de très longs combats se déroulent à une distance relativement proche (quelques centaines de mètres), les IA qui patrouillent la garnison (cf. paramètre 5) vont finir par se détacher, parfois une à une, parfois en petits groupes et rejoindre le combat.
 * Si les assets ne fournissent pas de position de fortification dans leur configuration, les IA ne pourront bien entendu pas se fortifier. Cela n'est pas dû à la fonction, mais bien à une mauvaise configuration de l'asset. C'est malheureusement le cas de certains blockhaus (ex. la classe Land_Fort_Watchtower_*).
@@ -220,8 +220,8 @@ Nota bene : le nom de la zone ne sert en fait pas à grand chose (voire à rien)
 
 Faire une mission avec Lucy a ceci de particulier que tout se passe par les marqueurs : vous ne posez pas les IA dans Eden. Par conséquent, vous devez avoir une excellente organisation de vos marqueurs et des règles de nommage claires pour vous y retrouver. Voici quelques conseils :
 
-* Créez un calque (layer) dédié dans Eden et placez-y tous vos marqueurs Lucy. Cela facilite grandement la navigation dans les marqueurs, vous permet de tous les masquer si nécessaire, etc. D'ailleurs, en règle général, les calques facilitent une bonne gestion de la mission (un calque pour le build, un calque pour les marqueurs Lucy, etc.).
-* Donnez-vous une règle de nommage des zones dès le début : si vous avez une ou deux zones, ce n'est pas très grave. Mais vous allez rapidement créer 4, 5 voire 10 zones sur une mission un peu charnue. Vous pouvez adopter par exemple les points cardinaux (mrkZn_Ouest, mrkZn_Nord_1, etc.) ou des noms signifiants (ex. mrkZnQG, mrkZnVilleMachin, etc.). Dans tous les cas, faites un choix au début et tenez-vous y. S'i vous faut renommer tous les marqueurs de spawn de patrouille ou de garnison parce que vous changez de règle de nommage en cours de route, c'est vraiment pénible (je parle d'expérience...).
+* Créez un calque (layer) dédié dans Eden et placez-y tous vos marqueurs Lucy. Cela facilite grandement la navigation dans les marqueurs, vous permet de tous les masquer si nécessaire, etc. D'ailleurs, en règle générale, les calques facilitent une bonne gestion de la mission (un calque pour le build, un calque pour les marqueurs Lucy, etc.).
+* Donnez-vous une règle de nommage des zones dès le début : si vous avez une ou deux zones, ce n'est pas très grave. Mais vous allez rapidement créer 4, 5 voire 10 zones sur une mission un peu charnue. Vous pouvez adopter par exemple les points cardinaux (mrkZn_Ouest, mrkZn_Nord_1, etc.) ou des noms signifiants (ex. mrkZnQG, mrkZnVilleMachin, etc.). Dans tous les cas, faites un choix au début et tenez-vous y. S'il vous faut renommer tous les marqueurs de spawn de patrouille ou de garnison parce que vous changez de règle de nommage en cours de route, c'est vraiment pénible (je parle d'expérience...).
 
 ### Créez un tableau contenant la définition des groupes d'IA
 
@@ -326,7 +326,7 @@ Vous appellerez ensuite ces scripts via le fichier ```initServer.sqf``` :
 //Spawn des hostiles
 [] spawn {
     execVM "spawnQG.sqf";
-	execVM "spawnVillage.sqf";
+    execVM "spawnVillage.sqf";
 };
 ```
 **Attention** ! Si vous utilisez des tableaux pour déclarer vos groupes comme (très fortement suggéré) dans le point précédent, pensez à lancer les scripts de spawn *après* la déclaration des groupes...
@@ -355,24 +355,24 @@ Le squelette de script de spawn peut, par exemple, être le suivant :
 private _zn = "QG";
 
 switch (true) do {
-	case (nbJoueurs <= 16): {
-		//Spawn des patrouilles : une seule petite patrouille
-		[_zn,[1],GROUPE_OPFOR_PETIT,opfor] spawn fn_spawnRdmPatrols;
-		//Spawn des garnisons : un petit groupe
-		//[_zn,GROUPE_OPFOR_PETIT,nil,nil,nil,nil,0.7,0.7] spawn fn_spawnGarnisons;
-	};
-	case (nbJoueurs > 16): {
-		//Spawn des patrouilles : 2 ou 3 petites patrouilles
-		[_zn,[2,3],GROUPE_OPFOR_PETIT,opfor] spawn fn_spawnRdmPatrols;
-		//Spawn des garnisons : un groupe moyen
-		[_zn,GROUPE_OPFOR_MOYEN,nil,nil,nil,nil,0.7,0.7] spawn fn_spawnGarnisons;
+    case (nbJoueurs <= 16): {
+        //Spawn des patrouilles : une seule petite patrouille
+        [_zn,[1],GROUPE_OPFOR_PETIT,opfor] spawn fn_spawnRdmPatrols;
+        //Spawn des garnisons : un petit groupe
+        //[_zn,GROUPE_OPFOR_PETIT,nil,nil,nil,nil,0.7,0.7] spawn fn_spawnGarnisons;
+    };
+    case (nbJoueurs > 16): {
+        //Spawn des patrouilles : 2 ou 3 petites patrouilles
+        [_zn,[2,3],GROUPE_OPFOR_PETIT,opfor] spawn fn_spawnRdmPatrols;
+        //Spawn des garnisons : un groupe moyen
+        [_zn,GROUPE_OPFOR_MOYEN,nil,nil,nil,nil,0.7,0.7] spawn fn_spawnGarnisons;
         //Spawn d'armes fixes
         [_zn,nil,nil,nil,1,1,0.8] spawn fn_spawnFixedWeapons;
-	};
+    };
 };
 ```
 
-**Attention ! Ne prenez pas cet équilibrage à la légère.** Une grande partie de l'expérience de la mission va dépendre de ça. Il y a de très nombreux paramètres sur lesquels vous pouvez jouer (taille de chaque groupe, équipement, nombre de groupes, présence d'arme fixe, etc., avec sur chacun de ces paramètres *un ou plusieurs* niveaux d'aléatoire, ) : **apportez le plus grand soin à cet équilibrage et réduisez l'aléatoire si nécessaire.**
+**Attention ! Ne prenez pas cet équilibrage à la légère.** Une grande partie de l'expérience de la mission va dépendre de ça. Il y a de très nombreux paramètres sur lesquels vous pouvez jouer (taille de chaque groupe, équipement, nombre de groupes, présence d'arme fixe, etc., avec sur chacun de ces paramètres *un ou plusieurs niveaux d'aléatoire*) : **apportez le plus grand soin à cet équilibrage et réduisez l'aléatoire si nécessaire.**
 
 ### La (seconde) cerise sur le gâteau : spawn de zone conditionnel
 
